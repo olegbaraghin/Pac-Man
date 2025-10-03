@@ -1,3 +1,28 @@
+## Instructiuni de compilare
+
+### Cerinte
+- MSYS2 cu g++ si make instalate
+
+### Cum compilezi proiectul
+1. Deschide terminalul MSYS2 si navigheaza in directorul proiectului:
+	```
+	cd /c/Users/User/Desktop/Pac-Man\ compiled\ with\ errors
+	```
+2. Curata build-urile anterioare (optional):
+	```
+	make clean
+	```
+3. Compileaza proiectul:
+	```
+	make
+	```
+4. Ruleaza jocul:
+	```
+	./pacman.exe
+	```
+
+Makefile-ul va compila automat toate fisierele sursa si va genera executabilul pacman.exe.
+
 # Pac-Man
 Proiectul reprezinta un joc numit Pac-Man in care cu player-ul tau mergi printr-un labirint cu obstacole precum fantome.
 
