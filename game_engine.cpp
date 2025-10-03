@@ -5,7 +5,7 @@
 GameEngine::GameEngine()
     : _pacman({0,0}), _maze(5,5), _score(0), _gameOver(false)
 {
-    _ghosts.push_back(Ghost({1,1}));
+    _ghosts.push_back(Ghost("Blinky", {1,1}));
     _pellets.push_back(Pellet({0,1}, PelletType::Normal));
 }
 
