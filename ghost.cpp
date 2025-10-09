@@ -1,4 +1,3 @@
-
 #include "ghost.hpp"
 
 Ghost::Ghost() : _position{0,0}, _direction(Direction::None), _state(GhostState::Chase), _target{0,0}, _name("") {}
