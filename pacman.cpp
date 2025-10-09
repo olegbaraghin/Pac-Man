@@ -1,4 +1,3 @@
-
 #include "pacman.hpp"
 
 Pacman::Pacman() : _position{0,0}, _direction(Direction::None), _score(0) {}
