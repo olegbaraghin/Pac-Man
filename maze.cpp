@@ -1,16 +1,46 @@
-#include "maze.hpp"
+Maze::Maze(const Maze& other)
+    : _width(other._width), _height(other._height), _grid(other._grid) {}
 
-Maze::Maze(int width, int height)
-    : _width(width),
-      _height(height),
-      _grid(height, std::vector<CellType>(width, CellType::Empty))
-{}
-
-
-CellType Maze::GetCell(int x, int y) const { return _grid[y][x]; }
-void Maze::SetCell(int x, int y, CellType type) { _grid[y][x] = type; }
-
-bool Maze::IsWalkable(Point p) const {
-    if(p.x < 0 || p.y < 0 || p.x >= _width || p.y >= _height) return false;
-    return _grid[p.y][p.x] == CellType::Empty;
+Maze& Maze::operator=(const Maze& other) {
+    if (this != &other) {
+        _width = other._width;
+        _height = other._height;
+        _grid = other._grid;
+    }
+    return *this;
 }
+
+bool Maze::operator==(const Maze& other) const {
+    return _width == other._width &&
+           _height == other._height &&
+           _grid == other._grid;
+}
+
+bool Maze::operator!=(const Maze& other) const {
+    return !(*this == other);
+}
+
+std::ostream& operator<<(std::ostream& os, const Maze& maze) {
+    os << maze._width << " " << maze._height << "\n";
+    for (const auto& row : maze._grid) {
+        for (const auto& cell : row) {
+            os << static_cast<int>(cell) << " ";
+        }
+        os << "\n";
+    }
+    return os;
+}
+
+std::istream& operator>>(std::istream& is, Maze& maze) {
+    is >> maze._width >> maze._height;
+    maze._grid.resize(maze._height, std::vector<CellType>(maze._width));
+    for (int y = 0; y < maze._height; ++y) {
+        for (int x = 0; x < maze._width; ++x) {
+            int cell;
+            is >> cell;
+            maze._grid[y][x] = static_cast<CellType>(cell);
+        }
+    }
+    return is;
+}
+

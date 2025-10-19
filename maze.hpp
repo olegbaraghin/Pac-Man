@@ -2,6 +2,7 @@
 
 #include "point.hpp"
 #include <vector>
+#include <iostream>
 
 enum class CellType {
     Wall,
@@ -16,17 +17,17 @@ class Maze {
     std::vector<std::vector<CellType>> _grid;
 
 public:
-    Maze(int width, int height);
+    Maze(int width = 0, int height = 0);
+    Maze(const Maze& other);
+
+    Maze& operator=(const Maze& other);
+    Maze& operator=(Maze&& other) noexcept;
 
     void LoadFromFile(const char* filename);
-
     int GetWidth() const;
     int GetHeight() const;
-
     CellType GetCell(int x, int y) const;
     void SetCell(int x, int y, CellType type);
-
     bool IsWalkable(Point p) const;
-
     void Reset();
 };
