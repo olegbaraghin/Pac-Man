@@ -1,10 +1,11 @@
 #include "ghost.hpp"
+#include <algorithm>
 
 Ghost::Ghost()
-    : _position{0,0}, _direction(Direction::None), _state(GhostState::Chase), _target{0,0}, _name("") {}
+    : _position{0, 0}, _direction(Direction::None), _state(GhostState::Chase), _target{0, 0}, _name("") {}
 
-Ghost::Ghost(const char* name, Point startPosition)
-    : _position(startPosition), _direction(Direction::None), _state(GhostState::Chase), _target{0,0}, _name(name) {}
+Ghost::Ghost(const std::string& name, Point startPosition)
+    : _position(startPosition), _direction(Direction::None), _state(GhostState::Chase), _target{0, 0}, _name(name) {}
 
 Ghost::Ghost(const Ghost& other)
     : _position(other._position), _direction(other._direction), _state(other._state),
@@ -25,8 +26,8 @@ Ghost& Ghost::operator=(const Ghost& other) {
 }
 
 bool Ghost::operator==(const Ghost& other) const {
-    return _position == other._position && _direction == other._direction &&
-           _state == other._state && _target == other._target && _name == other._name;
+    return std::tie(_position, _direction, _state, _target, _name) ==
+           std::tie(other._position, other._direction, other._state, other._target, other._name);
 }
 
 bool Ghost::operator!=(const Ghost& other) const {
@@ -60,9 +61,12 @@ void Ghost::SetTarget(Point target) { _target = target; }
 const std::string& Ghost::GetName() const { return _name; }
 
 void Ghost::Move() {
-    if (_direction == Direction::Up) _position.y--;
-    if (_direction == Direction::Down) _position.y++;
-    if (_direction == Direction::Left) _position.x--;
-    if (_direction == Direction::Right) _position.x++;
+    switch (_direction) {
+        case Direction::Up: _position.y--; break;
+        case Direction::Down: _position.y++; break;
+        case Direction::Left: _position.x--; break;
+        case Direction::Right: _position.x++; break;
+        default: break;
+    }
 }
 

@@ -1,6 +1,6 @@
 #include "pellet.hpp"
 
-Pellet::Pellet() : _position(0,0), _type(PelletType::Normal), _eaten(false) {}
+Pellet::Pellet() : _position(0, 0), _type(PelletType::Normal), _eaten(false) {}
 Pellet::Pellet(const Point& position, PelletType type) : _position(position), _type(type), _eaten(false) {}
 Pellet::Pellet(const Pellet& other) : _position(other._position), _type(other._type), _eaten(other._eaten) {}
 
@@ -23,14 +23,15 @@ bool Pellet::operator==(const Pellet& other) const {
 }
 
 std::istream& operator>>(std::istream& in, Pellet& pellet) {
-    int tx, ty, ttype, teaten;
-    in >> tx >> ty >> ttype >> teaten;
-    pellet = Pellet(Point(tx, ty), static_cast<PelletType>(ttype));
-    if (teaten) pellet.Eat();
+    int x, y, ttype, eaten;
+    in >> x >> y >> ttype >> eaten;
+    pellet = Pellet(Point(x, y), static_cast<PelletType>(ttype));
+    if (eaten) pellet.Eat();
     return in;
 }
 
 std::ostream& operator<<(std::ostream& out, const Pellet& pellet) {
-    out << pellet.GetPosition() << " " << static_cast<int>(pellet.GetType()) << " " << (pellet.IsEaten() ? 1 : 0);
+    out << pellet._position << " " << static_cast<int>(pellet._type) << " " << (pellet._eaten ? 1 : 0);
     return out;
 }
+

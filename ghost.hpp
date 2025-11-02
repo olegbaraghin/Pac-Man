@@ -3,6 +3,8 @@
 #include "point.hpp"
 #include "direction.hpp"
 #include <iostream>
+#include <memory>
+#include <string>
 
 enum class GhostState {
     Chase,
@@ -20,7 +22,7 @@ class Ghost {
 
 public:
     Ghost();
-    Ghost(const char* name, Point startPosition);
+    Ghost(const std::string& name, Point startPosition);
     Ghost(const Ghost& other);
     Ghost(const std::string& name, Point pos, Direction dir, GhostState state, Point target);
 
