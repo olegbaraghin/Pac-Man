@@ -1,19 +1,22 @@
 #pragma once
 
+#include "abstract_painter.hpp"
 #include "point.hpp"
-#include "direction.hpp"
+#include <string>
+#include <iostream>
 
-class Painter {
+enum class Direction { None, Up, Down, Left, Right };
+
+class Painter : public AbstractPainter {
 public:
-    void DrawPacman(Point position, Direction direction, bool powerMode);
-
-    void DrawGhost(Point position, const char* ghostName, const char* state);
-
-    void DrawPellet(Point position, bool isPowerPellet);
+    Painter() = default;
 
     void DrawMaze();
+    void DrawPacman(Point pos, Direction dir, bool mouthOpen);
+    void DrawGhost(Point pos, const std::string& name, const std::string& mode);
+    void DrawPellet(Point pos, bool big);
 
-    void WriteText(Point position, const char* text);
-
-    void ClearScreen();
+    void DrawImage(Point topLeft, Point bottomRight, const std::vector<std::string>& image);
+    void WriteText(Point position, const std::string& text);
 };
+

@@ -1,22 +1,28 @@
 #include "game_engine.hpp"
 #include "painter.hpp"
 #include <iostream>
+#include <algorithm>
 
 GameEngine::GameEngine()
-    : _pacman({0,0}), _maze(5,5), _score(0), _gameOver(false)
+    : _pacman(std::make_shared<Pacman>(Point{0, 0})),
+      _maze(std::make_shared<Maze>(5, 5)),
+      _score(0),
+      _gameOver(false)
 {
-    _ghosts.push_back(Ghost("Blinky", {1,1}));
-    _pellets.push_back(Pellet({0,1}, PelletType::Normal));
+    _ghosts.emplace_back(std::make_shared<Ghost>("Blinky", Point{1, 1}));
+    _pellets.emplace_back(std::make_shared<Pellet>(Point{0, 1}, PelletType::Normal));
 }
 
 void GameEngine::Init() {
     _score = 0;
     _gameOver = false;
-    _pacman.SetPosition({0,0});
-    if(!_ghosts.empty())
-        _ghosts[0].SetPosition({1,1});
-    if(!_pellets.empty())
-        _pellets[0] = Pellet({0,1}, PelletType::Normal);
+    _pacman->SetPosition({0, 0});
+
+    if (!_ghosts.empty())
+        _ghosts.front()->SetPosition({1, 1});
+
+    if (!_pellets.empty())
+        _pellets.front() = std::make_shared<Pellet>(Point{0, 1}, PelletType::Normal);
 }
 
 void GameEngine::Run() {
@@ -30,15 +36,14 @@ void GameEngine::Run() {
 }
 
 void GameEngine::Update() {
-    _pacman.Move(_pacman.GetDirection());
-    for(auto& pellet : _pellets) {
-        if(!pellet.IsEaten() &&
-           pellet.GetPosition().x == _pacman.GetPosition().x &&
-           pellet.GetPosition().y == _pacman.GetPosition().y)
-        {
-            pellet.Eat();
-            _pacman.Eat(pellet);
-            _score = _pacman.GetScore();
+    _pacman->Move(_pacman->GetDirection());
+
+    std::for_each(_pellets.begin(), _pellets.end(), [&](auto& pellet) {
+        if (!pellet->IsEaten() &&
+            pellet->GetPosition() == _pacman->GetPosition()) {
+            pellet->Eat();
+            _pacman->Eat(*pellet);
+            _score = _pacman->GetScore();
         }
     }
     for(auto& ghost : _ghosts) {
@@ -86,3 +91,4 @@ void GameEngine::NextLevel() {
 bool GameEngine::IsGameOver() const {
     return _gameOver;
 }
+
