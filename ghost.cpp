@@ -11,9 +11,28 @@ void Ghost::SetPosition(Point pos) {
 }
 
 void Ghost::Move() {
-    // Example movement logic: move in the current direction
     if(_direction == Direction::Up) _position.y--;
     if(_direction == Direction::Down) _position.y++;
     if(_direction == Direction::Left) _position.x--;
     if(_direction == Direction::Right) _position.x++;
 }
+
+Direction Ghost::GetDirection() const { return _direction; }
+
+void Ghost::SetDirection(Direction dir) {
+    _direction = dir;
+}
+
+GhostState Ghost::GetState() const { return _state; }
+
+void Ghost::SetState(GhostState state) {
+    _state = state;
+}
+
+Point Ghost::GetTarget() const { return _target; }
+
+void Ghost::SetTarget(Point target) {
+    _target = target;
+}
+
+const char* Ghost::GetName() const { return _name; }
