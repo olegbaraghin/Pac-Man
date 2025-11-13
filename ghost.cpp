@@ -60,9 +60,9 @@ void Ghost::SetTarget(Point target) { _target = target; }
 const std::string& Ghost::GetName() const { return _name; }
 
 void Ghost::Move() {
-    if (_direction == Direction::Up) _position.y--;
-    if (_direction == Direction::Down) _position.y++;
-    if (_direction == Direction::Left) _position.x--;
-    if (_direction == Direction::Right) _position.x++;
+    // Example movement logic: move in the current direction
+    if(_direction == Direction::Up) _position.y--;
+    if(_direction == Direction::Down) _position.y++;
+    if(_direction == Direction::Left) _position.x--;
+    if(_direction == Direction::Right) _position.x++;
 }
-
