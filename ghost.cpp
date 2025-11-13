@@ -61,12 +61,28 @@ void Ghost::SetTarget(Point target) { _target = target; }
 const std::string& Ghost::GetName() const { return _name; }
 
 void Ghost::Move() {
-    switch (_direction) {
-        case Direction::Up: _position.y--; break;
-        case Direction::Down: _position.y++; break;
-        case Direction::Left: _position.x--; break;
-        case Direction::Right: _position.x++; break;
-        default: break;
-    }
+    if(_direction == Direction::Up) _position.y--;
+    if(_direction == Direction::Down) _position.y++;
+    if(_direction == Direction::Left) _position.x--;
+    if(_direction == Direction::Right) _position.x++;
 }
 
+Direction Ghost::GetDirection() const { return _direction; }
+
+void Ghost::SetDirection(Direction dir) {
+    _direction = dir;
+}
+
+GhostState Ghost::GetState() const { return _state; }
+
+void Ghost::SetState(GhostState state) {
+    _state = state;
+}
+
+Point Ghost::GetTarget() const { return _target; }
+
+void Ghost::SetTarget(Point target) {
+    _target = target;
+}
+
+const char* Ghost::GetName() const { return _name; }

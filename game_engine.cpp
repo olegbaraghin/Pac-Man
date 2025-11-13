@@ -26,10 +26,12 @@ void GameEngine::Init() {
 }
 
 void GameEngine::Run() {
+    const int delayIterations = 10000000; 
     while (!_gameOver) {
         Update();
         Draw();
-        _gameOver = true;
+
+        for(volatile int i = 0; i < delayIterations; ++i) { }
     }
 }
 
@@ -43,23 +45,42 @@ void GameEngine::Update() {
             _pacman->Eat(*pellet);
             _score = _pacman->GetScore();
         }
-    });
+    }
+    for(auto& ghost : _ghosts) {
+        ghost.Move();
+
+        GhostState st = ghost.GetState();
+        if(st == GhostState::Chase) {
+            ghost.SetState(GhostState::Scatter);
+        } else if(st == GhostState::Scatter) {
+            ghost.SetState(GhostState::Frightened);
+        } else if(st == GhostState::Frightened) {
+            ghost.SetState(GhostState::Eyes);
+        } else if(st == GhostState::Eyes) {
+            ghost.SetState(GhostState::Chase);
+        } else {
+            ghost.SetState(GhostState::Chase);
+        }
+    }
 }
 
 void GameEngine::Draw() {
     Painter painter;
     painter.DrawMaze();
-    painter.DrawPacman(_pacman->GetPosition(), _pacman->GetDirection(), false);
+    painter.DrawPacman(_pacman.GetPosition(), _pacman.GetDirection(), false);
+    for(auto& ghost : _ghosts) {
+        const char* stateStr = "Unknown";
+        GhostState st = ghost.GetState();
+        if(st == GhostState::Chase) stateStr = "Chase";
+        else if(st == GhostState::Scatter) stateStr = "Scatter";
+        else if(st == GhostState::Frightened) stateStr = "Frightened";
+        else if(st == GhostState::Eyes) stateStr = "Eyes";
 
-    std::for_each(_ghosts.begin(), _ghosts.end(), [&](const auto& ghost) {
-        painter.DrawGhost(ghost->GetPosition(), ghost->GetName(), "Chase");
-    });
-
-    std::for_each(_pellets.begin(), _pellets.end(), [&](const auto& pellet) {
-        if (!pellet->IsEaten())
-            painter.DrawPellet(pellet->GetPosition(), pellet->GetType() == PelletType::Power);
-    });
-
+        painter.DrawGhost(ghost.GetPosition(), ghost.GetName(), stateStr);
+    }
+    for(auto& pellet : _pellets)
+        if(!pellet.IsEaten())
+            painter.DrawPellet(pellet.GetPosition(), pellet.GetType() == PelletType::Power);
     std::cout << "Score: " << _score << std::endl;
 }
 
