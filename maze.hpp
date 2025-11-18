@@ -11,12 +11,12 @@ class Maze {
     std::vector<std::vector<CellType>> _grid;
 
 public:
-    Maze(int width = 0, int height = 0);
-    Maze(const Maze& other);
+    Maze();
+    Maze(int width, int height);
 
+    Maze(const Maze& other);
     Maze& operator=(const Maze& other);
     bool operator==(const Maze& other) const;
-    bool operator!=(const Maze& other) const;
 
     void LoadFromFile(const std::string& filename);
     int GetWidth() const;
@@ -29,3 +29,5 @@ public:
     friend std::istream& operator>>(std::istream& is, Maze& maze);
 };
 
+std::istream& operator>>(std::istream& in, Maze& maze);
+std::ostream& operator<<(std::ostream& out, const Maze& maze);

@@ -2,21 +2,27 @@
 
 #include "abstract_painter.hpp"
 #include "point.hpp"
+#include "direction.hpp"
 #include <string>
-#include <iostream>
-
-enum class Direction { None, Up, Down, Left, Right };
 
 class Painter : public AbstractPainter {
 public:
     Painter() = default;
 
+    // Primary API used across the codebase
+    void DrawPacman(Point position, Direction direction, bool powerMode);
+    void DrawGhost(Point position, const char* ghostName, const char* state);
+    void DrawPellet(Point position, bool isPowerPellet);
     void DrawMaze();
-    void DrawPacman(Point pos, Direction dir, bool mouthOpen);
-    void DrawGhost(Point pos, const std::string& name, const std::string& mode);
-    void DrawPellet(Point pos, bool big);
 
-    void DrawImage(Point topLeft, Point bottomRight, const std::vector<std::string>& image);
-    void WriteText(Point position, const std::string& text);
+    void WriteText(Point position, const char* text) override;
+    void ClearScreen();
+
+    // Additional convenience overloads implemented in .cpp
+    void DrawGhost(Point pos, const std::string& name, const std::string& mode);
+    void DrawPacman(Point pos, Direction dir, bool mouthOpen);
+
+    // AbstractPainter implementation
+    void DrawImage(Point topLeft, Point bottomRight, char** image) override;
 };
 

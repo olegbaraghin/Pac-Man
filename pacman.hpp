@@ -15,15 +15,10 @@ class Pacman {
 public:
     Pacman();
     Pacman(const Point& startPosition);
-    Pacman(const Pacman& other);
-    Pacman(const Point& pos, Direction dir, int score, bool powerMode, int timer);
 
+    Pacman(const Pacman& other);
     Pacman& operator=(const Pacman& other);
     bool operator==(const Pacman& other) const;
-    bool operator!=(const Pacman& other) const;
-
-    friend std::ostream& operator<<(std::ostream& out, const Pacman& p);
-    friend std::istream& operator>>(std::istream& in, Pacman& p);
 
     void Move(Direction dir);
     void Eat(const Pellet& pellet);
@@ -37,5 +32,7 @@ public:
     bool IsPowerMode() const;
 };
 
+std::istream& operator>>(std::istream& in, Pacman& pacman);
+std::ostream& operator<<(std::ostream& out, const Pacman& pacman);
 
 
