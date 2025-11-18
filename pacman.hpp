@@ -1,9 +1,8 @@
 #pragma once
 #include "point.hpp"
 #include "pellet.hpp"
+#include "direction.hpp"
 #include <iostream>
-
-enum class Direction { Up, Down, Left, Right, None };
 
 class Pacman {
     Point _position;

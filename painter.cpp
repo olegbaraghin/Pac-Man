@@ -25,6 +25,14 @@ void Painter::DrawGhost(Point pos, const std::string& name, const std::string& m
     std::cout << "Ghost '" << name << "' at " << pos << " mode=" << mode << std::endl;
 }
 
+void Painter::DrawPellet(Point position, bool isPowerPellet) {
+    if (isPowerPellet) {
+        std::cout << "Power Pellet at (" << position.x << "," << position.y << ")\n";
+    } else {
+        std::cout << "Pellet at (" << position.x << "," << position.y << ")\n";
+    }
+}
+
 void Painter::WriteText(Point position, const char* text) {
     std::cout << "Text at (" << position.x << "," << position.y << "): " << (text ? text : "") << std::endl;
 }
