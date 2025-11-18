@@ -20,7 +20,6 @@ public:
 
     // Additional convenience overloads implemented in .cpp
     void DrawGhost(Point pos, const std::string& name, const std::string& mode);
-    void DrawPacman(Point pos, Direction dir, bool mouthOpen);
 
     // AbstractPainter implementation
     void DrawImage(Point topLeft, Point bottomRight, char** image) override;
