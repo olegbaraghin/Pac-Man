@@ -1,6 +1,7 @@
 #include "point.hpp"
 
 Point::Point(int _x, int _y) : x(_x), y(_y) {}
+
 Point::Point(const Point& other) : x(other.x), y(other.y) {}
 
 Point& Point::operator=(const Point& other) {

@@ -71,7 +71,7 @@ void GameEngine::Draw() {
         else if(st == GhostState::Frightened) stateStr = "Frightened";
         else if(st == GhostState::Eyes) stateStr = "Eyes";
 
-        painter.DrawGhost(ghost.GetPosition(), ghost.GetName(), stateStr);
+        painter.DrawGhost(ghost.GetPosition(), ghost.GetName().c_str(), stateStr);
     }
     for(auto& pellet : _pellets)
         if(!pellet.IsEaten())

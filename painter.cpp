@@ -44,14 +44,15 @@ void Painter::DrawPellet(Point position, bool isPowerPellet) {
     }
 }
 
-void Painter::DrawPellet(Point pos, bool big) {
-    std::cout << "DrawPellet at " << pos << " big=" << (big ? "Yes" : "No") << std::endl;
+void Painter::WriteText(Point position, const char* text) {
+    std::cout << "Text at (" << position.x << "," << position.y << "): " << (text ? text : "") << std::endl;
 }
 
 void Painter::DrawImage(Point topLeft, Point bottomRight, char** image) {
-    std::cout << "DrawImage from " << topLeft << " to " << bottomRight << std::endl;
+    std::cout << "Drawing image from (" << topLeft.x << "," << topLeft.y << ") to (" << bottomRight.x << "," << bottomRight.y << ")" << std::endl;
 }
 
-void Painter::WriteText(Point position, char* text) {
-    std::cout << "WriteText at " << position << ": " << (text ? text : "") << std::endl;
+void Painter::ClearScreen() {
+    // Simple placeholder
+    std::cout << std::string(40, '=') << std::endl;
 }
