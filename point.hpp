@@ -1,10 +1,9 @@
 #pragma once
-
 #include <iostream>
 
-struct Point{
-   int x;
-   int y;
+struct Point {
+    int x;
+    int y;
 
    Point(int _x = 0, int _y = 0);
    Point(const Point& other);

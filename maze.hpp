@@ -1,15 +1,9 @@
 #pragma once
-
 #include "point.hpp"
 #include <vector>
 #include <iostream>
 
-enum class CellType {
-    Wall,
-    Empty,
-    Gate,
-    Tunnel
-};
+enum class CellType { Wall, Empty, Gate, Tunnel };
 
 class Maze {
     int _width;
@@ -24,13 +18,15 @@ public:
     Maze& operator=(const Maze& other);
     bool operator==(const Maze& other) const;
 
-    void LoadFromFile(const char* filename);
+    void LoadFromFile(const std::string& filename);
     int GetWidth() const;
     int GetHeight() const;
     CellType GetCell(int x, int y) const;
     void SetCell(int x, int y, CellType type);
     bool IsWalkable(Point p) const;
-    void Reset();
+
+    friend std::ostream& operator<<(std::ostream& os, const Maze& maze);
+    friend std::istream& operator>>(std::istream& is, Maze& maze);
 };
 
 std::istream& operator>>(std::istream& in, Maze& maze);

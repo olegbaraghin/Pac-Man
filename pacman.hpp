@@ -1,9 +1,9 @@
 #pragma once
-
 #include "point.hpp"
-#include "direction.hpp"
 #include "pellet.hpp"
 #include <iostream>
+
+enum class Direction { Up, Down, Left, Right, None };
 
 class Pacman {
     Point _position;
@@ -20,20 +20,19 @@ public:
     Pacman& operator=(const Pacman& other);
     bool operator==(const Pacman& other) const;
 
-    void Move(Direction direction);
+    void Move(Direction dir);
     void Eat(const Pellet& pellet);
     void UpdatePowerMode();
 
     Point GetPosition() const;
-    void SetPosition(const Point& position);
-
+    void SetPosition(const Point& pos);
     Direction GetDirection() const;
-    void SetDirection(Direction direction);
-
+    void SetDirection(Direction dir);
     int GetScore() const;
     bool IsPowerMode() const;
 };
 
 std::istream& operator>>(std::istream& in, Pacman& pacman);
 std::ostream& operator<<(std::ostream& out, const Pacman& pacman);
+
 

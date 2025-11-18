@@ -39,3 +39,4 @@ std::ostream& operator<<(std::ostream& out, const Pellet& pellet) {
 	out << pellet.GetPosition() << " " << static_cast<int>(pellet.GetType()) << " " << pellet.IsEaten();
 	return out;
 }
+

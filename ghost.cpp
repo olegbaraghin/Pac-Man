@@ -2,7 +2,7 @@
 #include <iostream>
 
 Ghost::Ghost()
-    : _position{0,0}, _direction(Direction::None), _state(GhostState::Chase), _target{0,0}, _name("") {}
+    : _position{0, 0}, _direction(Direction::None), _state(GhostState::Chase), _target{0, 0}, _name("") {}
 
 Ghost::Ghost(const std::string& name, Point startPosition)
     : _position(startPosition), _direction(Direction::None), _state(GhostState::Chase), _target{0,0}, _name(name) {}

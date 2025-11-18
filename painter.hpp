@@ -25,3 +25,4 @@ public:
     // AbstractPainter implementation
     void DrawImage(Point topLeft, Point bottomRight, char** image) override;
 };
+

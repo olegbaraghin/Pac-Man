@@ -4,6 +4,8 @@
 #include "direction.hpp"
 #include <string>
 #include <iostream>
+#include <memory>
+#include <string>
 
 enum class GhostState {
     Chase,

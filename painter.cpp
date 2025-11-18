@@ -1,47 +1,25 @@
-#include <iostream>
 #include "painter.hpp"
+#include <iostream>
 
 void Painter::DrawMaze() {
     std::cout << "Drawing maze..." << std::endl;
 }
 
-void Painter::DrawPacman(Point position, Direction direction, bool powerMode) {
-    const char* dirStr = "";
-    switch (direction) {
-        case Direction::Up: dirStr = "Up"; break;
-        case Direction::Down: dirStr = "Down"; break;
-        case Direction::Left: dirStr = "Left"; break;
-        case Direction::Right: dirStr = "Right"; break;
-        default: dirStr = "Unknown"; break;
-    }
-    std::cout << "Pacman at (" << position.x << "," << position.y << "), direction: " << dirStr << ", powerMode: " << (powerMode ? "ON" : "OFF") << "\n";
-}
-
 void Painter::DrawPacman(Point pos, Direction dir, bool mouthOpen) {
-    std::string d;
+    std::string directionStr;
     switch (dir) {
-        case Direction::Up: d = "Up"; break;
-        case Direction::Down: d = "Down"; break;
-        case Direction::Left: d = "Left"; break;
-        case Direction::Right: d = "Right"; break;
+        case Direction::Up: directionStr = "Up"; break;
+        case Direction::Down: directionStr = "Down"; break;
+        case Direction::Left: directionStr = "Left"; break;
+        case Direction::Right: directionStr = "Right"; break;
+        default: directionStr = "None"; break;
     }
-    std::cout << "DrawPacman at " << pos << " dir=" << d << " mouthOpen=" << (mouthOpen ? "Yes" : "No") << std::endl;
-}
-
-void Painter::DrawGhost(Point position, const char *ghostName, const char *state) {
-    std::cout << "Ghost '" << ghostName << "' (" << state << ") at (" << position.x << "," << position.y << ")\n";
+    std::cout << "Pacman at " << pos << ", direction: " << directionStr
+              << ", mouth open: " << (mouthOpen ? "Yes" : "No") << std::endl;
 }
 
 void Painter::DrawGhost(Point pos, const std::string& name, const std::string& mode) {
-    std::cout << "DrawGhost '" << name << "' at " << pos << " mode=" << mode << std::endl;
-}
-
-void Painter::DrawPellet(Point position, bool isPowerPellet) {
-    if (isPowerPellet) {
-        std::cout << "Power Pellet at (" << position.x << "," << position.y << ")\n";
-    } else {
-        std::cout << "Pellet at (" << position.x << "," << position.y << ")\n";
-    }
+    std::cout << "Ghost '" << name << "' at " << pos << " mode=" << mode << std::endl;
 }
 
 void Painter::WriteText(Point position, const char* text) {
@@ -56,3 +34,4 @@ void Painter::ClearScreen() {
     // Simple placeholder
     std::cout << std::string(40, '=') << std::endl;
 }
+
