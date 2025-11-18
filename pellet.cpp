@@ -5,7 +5,7 @@
 
 Pellet::Pellet() : _position{0,0}, _type(PelletType::Normal), _eaten(false) {}
 
-Pellet::Pellet(Point position, PelletType type) : _position(position), _type(type), _eaten(false) {}
+Pellet::Pellet(const Point& position, PelletType type) : _position(position), _type(type), _eaten(false) {}
 
 Pellet::Pellet(const Pellet& other)
 	: _position(other._position), _type(other._type), _eaten(other._eaten) {}

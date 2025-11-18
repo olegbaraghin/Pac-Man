@@ -22,12 +22,17 @@ void Painter::DrawGhost(Point pos, const std::string& name, const std::string& m
     std::cout << "Ghost '" << name << "' at " << pos << " mode=" << mode << std::endl;
 }
 
-void Painter::WriteText(Point position, const char* text) {
-    std::cout << "Text at (" << position.x << "," << position.y << "): " << (text ? text : "") << std::endl;
+void Painter::DrawPellet(Point position, bool isPowerPellet) {
+    std::cout << "Pellet at " << position << " type=" << (isPowerPellet ? "Power" : "Normal") << std::endl;
 }
 
-void Painter::DrawImage(Point topLeft, Point bottomRight, char** image) {
+void Painter::WriteText(Point position, const std::string& text) {
+    std::cout << "Text at (" << position.x << "," << position.y << "): " << text << std::endl;
+}
+
+void Painter::DrawImage(Point topLeft, Point bottomRight, const std::vector<std::string>& image) {
     std::cout << "Drawing image from (" << topLeft.x << "," << topLeft.y << ") to (" << bottomRight.x << "," << bottomRight.y << ")" << std::endl;
+    for (const auto& line : image) std::cout << line << std::endl;
 }
 
 void Painter::ClearScreen() {

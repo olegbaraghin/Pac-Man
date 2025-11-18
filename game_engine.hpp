@@ -7,6 +7,8 @@
 #include <vector>
 #include <memory>
 #include <algorithm>
+#include <random>
+
 
 class GameEngine {
     std::shared_ptr<Pacman> _pacman;
@@ -15,6 +17,9 @@ class GameEngine {
     std::vector<std::shared_ptr<Pellet>> _pellets;
     int _score;
     bool _gameOver;
+    std::mt19937 _rng;
+    bool _mouthOpen;
+    int _tickCount;
 
 public:
     GameEngine();

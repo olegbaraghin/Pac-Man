@@ -4,6 +4,7 @@
 #include "point.hpp"
 #include "direction.hpp"
 #include <string>
+#include <vector>
 
 class Painter : public AbstractPainter {
 public:
@@ -11,18 +12,16 @@ public:
 
     // Primary API used across the codebase
     void DrawPacman(Point position, Direction direction, bool powerMode);
-    void DrawGhost(Point position, const char* ghostName, const char* state);
+    void DrawGhost(Point position, const std::string& ghostName, const std::string& state);
     void DrawPellet(Point position, bool isPowerPellet);
     void DrawMaze();
 
-    void WriteText(Point position, const char* text) override;
+    void WriteText(Point position, const std::string& text) override;
     void ClearScreen();
 
-    // Additional convenience overloads implemented in .cpp
-    void DrawGhost(Point pos, const std::string& name, const std::string& mode);
-    void DrawPacman(Point pos, Direction dir, bool mouthOpen);
+    // Additional convenience helpers implemented in .cpp
 
     // AbstractPainter implementation
-    void DrawImage(Point topLeft, Point bottomRight, char** image) override;
+    void DrawImage(Point topLeft, Point bottomRight, const std::vector<std::string>& image) override;
 };
 

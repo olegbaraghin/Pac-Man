@@ -24,6 +24,7 @@ public:
     CellType GetCell(int x, int y) const;
     void SetCell(int x, int y, CellType type);
     bool IsWalkable(Point p) const;
+    void Reset();
 
     friend std::ostream& operator<<(std::ostream& os, const Maze& maze);
     friend std::istream& operator>>(std::istream& is, Maze& maze);
