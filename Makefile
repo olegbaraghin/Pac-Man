@@ -1,65 +1,62 @@
-# -------------------------------------
-#  Makefile pentru proiectul Pac-Man
-# -------------------------------------
-
 CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Iinclude
+CXXFLAGS = -Wall -std=c++17 -Iinclude
 
 # Directoare
-SRC_DIR = src
-LIB_DIR = lib
-INC_DIR = include
-OBJ_DIR = obj
-BIN = pacman.exe
-LIB_STATIC = libpacman.a
+SRCDIR = src
+LIBDIR = lib
+INCDIR = include
+TESTDIR = tests
+OBJDIR = obj
+BINDIR = bin
 
-# Colectează toate fișierele .cpp
-SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
-LIB_FILES = $(wildcard $(LIB_DIR)/*.cpp)
+# Fișiere sursă
+# Core Lib sources (Point, Ghost, etc.)
+LIB_SOURCES = $(wildcard $(LIBDIR)/*.cpp)
+# App sources (Main, Engine, Painter)
+APP_SOURCES = $(wildcard $(SRCDIR)/*.cpp)
+# Test sources
+TEST_SOURCES = $(wildcard $(TESTDIR)/*.cpp)
 
-# Obiecte generate
-SRC_OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
-LIB_OBJS = $(patsubst $(LIB_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(LIB_FILES))
+# Obiecte
+LIB_OBJECTS = $(patsubst $(LIBDIR)/%.cpp, $(OBJDIR)/lib_%.o, $(LIB_SOURCES))
+APP_OBJECTS = $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/src_%.o, $(APP_SOURCES))
+TEST_OBJECTS = $(patsubst $(TESTDIR)/%.cpp, $(OBJDIR)/test_%.o, $(TEST_SOURCES))
 
-# Toate obiectele
-OBJS = $(SRC_OBJS) $(LIB_OBJS)
+# Executabile
+TARGET = $(BINDIR)/pacman
+TEST_TARGET = $(BINDIR)/run_tests
 
-# Ținta principală
-all: prepare $(LIB_STATIC) $(BIN)
+# Reguli implicite
+all: directories $(TARGET)
 
-# Creează folderul obj dacă nu există
-prepare:
-	@if [ ! -d $(OBJ_DIR) ]; then mkdir $(OBJ_DIR); fi
+# Creare executabil principal
+$(TARGET): $(LIB_OBJECTS) $(APP_OBJECTS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
-# -----------------------------
-#  Creează biblioteca statică
-# -----------------------------
-$(LIB_STATIC): $(LIB_OBJS)
-	ar rcs $(LIB_STATIC) $(LIB_OBJS)
+# Creare executabil teste
+tests: directories $(TEST_TARGET)
 
-# -----------------------------
-#  Compilează executabilul
-# -----------------------------
-$(BIN): $(SRC_OBJS) $(LIB_STATIC)
-	$(CXX) $(CXXFLAGS) -o $(BIN) $(SRC_OBJS) $(LIB_STATIC)
+$(TEST_TARGET): $(LIB_OBJECTS) $(TEST_OBJECTS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
-# -----------------------------
-#  Regula pentru fișiere .cpp
-# -----------------------------
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+# Compilare surse din lib/
+$(OBJDIR)/lib_%.o: $(LIBDIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(OBJ_DIR)/%.o: $(LIB_DIR)/%.cpp
+# Compilare surse din src/
+$(OBJDIR)/src_%.o: $(SRCDIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# -----------------------------
-#  Curățare
-# -----------------------------
+# Compilare surse din tests/
+$(OBJDIR)/test_%.o: $(TESTDIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Creare directoare necesare
+directories:
+	mkdir -p $(OBJDIR) $(BINDIR)
+
 clean:
-	del /Q $(OBJ_DIR)\*.o
-	del /Q $(BIN)
-	del /Q $(LIB_STATIC)
+	rm -rf $(OBJDIR) $(BINDIR)
 
-clean_linux:
-	rm -f $(OBJ_DIR)/*.o $(BIN) $(LIB_STATIC)
+.PHONY: all clean tests directories
 
