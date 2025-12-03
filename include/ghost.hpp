@@ -1,19 +1,31 @@
-#pragma once
+/**
+ * @file ghost.hpp
+ * @brief Definirea clasei Ghost (Fantoma).
+ * @author Student
+ * @date 2025
+ */
 
+#pragma once
 #include "point.hpp"
 #include "direction.hpp"
 #include <string>
 #include <iostream>
-#include <memory>
-#include <string>
 
+/**
+ * @enum GhostState
+ * @brief Stările posibile ale unei fantome.
+ */
 enum class GhostState {
-    Chase,
-    Scatter,
-    Frightened,
-    Eyes
+    Chase,      ///< Urmărește Pacman
+    Scatter,    ///< Se retrage în colțul său
+    Frightened, ///< Fuge de Pacman (când Power Mode este activ)
+    Eyes        ///< A fost mâncată, se întoarce la bază
 };
 
+/**
+ * @class Ghost
+ * @brief Reprezintă un inamic în joc.
+ */
 class Ghost {
     Point _position;
     Direction _direction;
@@ -23,9 +35,15 @@ class Ghost {
 
 public:
     Ghost();
+    
+    /**
+     * @brief Constructor cu nume și poziție.
+     * @param name Numele fantomei (ex: "Blinky").
+     * @param startPosition Poziția de start.
+     */
     Ghost(const std::string& name, Point startPosition);
+    
     Ghost(const Ghost& other);
-
     Ghost& operator=(const Ghost& other);
     bool operator==(const Ghost& other) const;
     bool operator!=(const Ghost& other) const;
@@ -42,6 +60,9 @@ public:
     Point GetTarget() const;
     void SetTarget(Point target);
 
+    /**
+     * @brief Execută logica de mișcare a fantomei bazată pe stare și țintă.
+     */
     void Move();
 
     void SetName(const std::string& name);

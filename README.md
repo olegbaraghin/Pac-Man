@@ -45,3 +45,19 @@ Fii atent cu inamicii precum fantomele fiindca te pot omori.
 - `painter.hpp` -> se ocupa de redare vizuala a jocului. El afiseaza elemente grafice.
 - `point.hpp` -> reprezinta pozitia pe labirint.
 - `game_engine.hpp` -> logica principala a jocului Pac-Man. El leaga toate componentele ai acestui joc: PacMan, fantome, labirintul, cerculetele care trebuie sa fie mancate de PacMan si scorul.
+
+---
+## Rularea Testelor Unitare (Adăugat)
+
+Pentru a testa clasele de date (Point, Pacman, Ghost, Maze, Pellet) folosind testele din directorul `tests/`:
+
+1. **Compilează executabilul de teste:**
+    ```bash
+    make tests
+    ```
+
+2. **Rulează testele:**
+    ```bash
+    ./bin/run_tests
+    ```
+    *(Nota: Executabilul de teste este salvat în directorul `bin/` sub numele `run_tests`.)*
